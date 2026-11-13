@@ -31,4 +31,9 @@ public class GlobalExceptionHandler {
                 .collect(java.util.stream.Collectors.joining(", "));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
     }
+
+    @ExceptionHandler(EndpointNotFoundException.class)
+    public ResponseEntity<String> handleEndpointNotFound(EndpointNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }
