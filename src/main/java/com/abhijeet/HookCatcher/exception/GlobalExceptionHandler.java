@@ -36,4 +36,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleEndpointNotFound(EndpointNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+    @ExceptionHandler(InvalidTargetException.class)
+    public ResponseEntity<String> handleInvalidTarget(InvalidTargetException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(org.springframework.web.client.ResourceAccessException.class)
+    public ResponseEntity<String> handleUnreachable(org.springframework.web.client.ResourceAccessException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Could not reach the target URL");
+    }
 }
